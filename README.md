@@ -1,27 +1,53 @@
-# NgxEqualsto
+# ngx-Equalsto
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.6.
+Angular directive to check if 2 or more input values are same in the reactive form. If not, then mark the form control invalid with error. This is widely use with form that have password and password confirm.  
 
-## Development server
+## Installation
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+`npm install --save ngx-equalsto`
 
-## Code scaffolding
+Import `NgxEqualsto` in your app module.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+```typescript
+import { NgxEqualstoModule } from 'ngx-equalsto';
 
-## Build
+@NgModule({
+  imports: [
+    NgxEqualstoModule,
+  ],
+})
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+export class AppModule {}
+```
 
-## Running unit tests
+## Usage
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+This directive work with reactive form only. You need to mention the form control that equals to in `equalsTo` directive. If you add `isConfirm` directive in the input, then the error will only reflect to that form control. 
 
-## Running end-to-end tests
+Here is the example of how to use in `COMP.component.ts` and `COMP.component.html`.
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+```typescript
+export class AppComponent implements OnInit {
+  exampleForm: FormGroup;
+  
+  constructor(private formBuilder: FormBuilder) {}
+  
+  ngOnInit() {
+    this.exampleForm = this.formBuilder.group({
+      password: null,
+      passwordConfirm: null,
+    });
+  }
+}
+```
 
-## Further help
+```html
+<form [formGroup]="exampleForm">
+  <input formControlName="password" equalsTo="passwordConfirm">
+  <input formControlName="passwordConfirm" equalsTo="password" isConfirm="true">
+</form>
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+## License
+
+MIT

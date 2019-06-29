@@ -9,6 +9,7 @@ build:
   image: library/node:10.16.0-alpine
   stage: build
   script:
+    - npm rebuild
     - npm run build
   cache:
     paths:

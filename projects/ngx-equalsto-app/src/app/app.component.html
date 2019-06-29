@@ -1,6 +1,0 @@
-<form [formGroup]="exampleForm">
-  <input formControlName="password" equalsTo="passwordConfirm">
-  <input formControlName="passwordConfirm" equalsTo="password" isConfirm="true">
-</form>
-
-<span *ngIf="showErrorMsg">{{ errorMsg }}</span>

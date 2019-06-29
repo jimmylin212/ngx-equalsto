@@ -1,0 +1,24 @@
+before_script:
+  - npm install
+
+stages:
+  - test
+  - build
+
+build:
+  image: library/node:10.16.0-alpine
+  stage: build
+  script:
+    - npm run build
+  cache:
+    paths:
+      - dist/
+
+test:
+  image: alekzonder/puppeteer:latest
+  stage: test
+  script:
+    - npm run test
+  cache:
+    paths:
+      - node_modules/

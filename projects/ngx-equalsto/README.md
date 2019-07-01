@@ -1,24 +1,56 @@
-# NgxEqualsto
+# ngx-Equalsto
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.2.0.
+[![pipeline status](https://gitlab.com/jimmylin212/ngx-equalsto/badges/master/pipeline.svg)](https://gitlab.com/jimmylin212/ngx-equalsto/commits/master)
+[![coverage report](https://gitlab.com/jimmylin212/ngx-equalsto/badges/master/coverage.svg)](https://gitlab.com/jimmylin212/ngx-equalsto/commits/master)
 
-## Code scaffolding
+Angular directive to check if 2 or more input values are same in the reactive form. If not, then mark the form control invalid with error. This is widely use with form that have password and password confirm.
 
-Run `ng generate component component-name --project ngx-equalsto` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project ngx-equalsto`.
-> Note: Don't forget to add `--project ngx-equalsto` or else it will be added to the default project in your `angular.json` file. 
+## Installation
 
-## Build
+`npm install --save ngx-equalsto`
 
-Run `ng build ngx-equalsto` to build the project. The build artifacts will be stored in the `dist/` directory.
+Import `NgxEqualsto` in your app module.
 
-## Publishing
+```typescript
+import { NgxEqualstoModule } from 'ngx-equalsto';
 
-After building your library with `ng build ngx-equalsto`, go to the dist folder `cd dist/ngx-equalsto` and run `npm publish`.
+@NgModule({
+  imports: [
+    NgxEqualstoModule,
+  ],
+})
 
-## Running unit tests
+export class AppModule {}
+```
 
-Run `ng test ngx-equalsto` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Usage
 
-## Further help
+This directive work with reactive form only. You need to mention the form control that equals to in `equalsTo` directive. If you add `isConfirm` directive in the input, then the error will only reflect to that form control.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Here is the example of how to use in `COMP.component.ts` and `COMP.component.html`.
+
+```typescript
+export class AppComponent implements OnInit {
+  exampleForm: FormGroup;
+
+  constructor(private formBuilder: FormBuilder) {}
+
+  ngOnInit() {
+    this.exampleForm = this.formBuilder.group({
+      password: null,
+      passwordConfirm: null,
+    });
+  }
+}
+```
+
+```html
+<form [formGroup]="exampleForm">
+  <input formControlName="password" equalsTo="passwordConfirm">
+  <input formControlName="passwordConfirm" equalsTo="password" isConfirm="true">
+</form>
+```
+
+## License
+
+MIT

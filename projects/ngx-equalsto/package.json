@@ -1,6 +1,24 @@
 {
   "name": "ngx-equalsto",
   "version": "1.0.0",
+  "description": "An Angular directive that compare 2 or more input in reactive form.",
+  "author": "Jimmy Lin",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:jimmylin212/ngx-equalsto.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jimmylin212/ngx-equalsto/issues"
+  },
+  "homepage": "https://github.com/jimmylin212/ngx-equalsto",
+  "keywords": [
+    "angular",
+    "angular2",
+    "ngx",
+    "directive",
+    "form",
+    "reactive form"
+  ],
   "peerDependencies": {
     "@angular/common": "^7.2.0",
     "@angular/core": "^7.2.0"

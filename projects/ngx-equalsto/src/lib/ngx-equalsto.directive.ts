@@ -1,10 +1,10 @@
-import { Directive, Attribute, forwardRef } from '@angular/core';
+import { Directive, Attribute } from '@angular/core';
 import { Validator, NG_VALIDATORS, AbstractControl } from '@angular/forms';
 
 @Directive({
   selector: '[equalsTo]',
   providers: [
-    { provide: NG_VALIDATORS, useExisting: forwardRef(() => EqualstoDirective), multi: true },
+    { provide: NG_VALIDATORS, useExisting: EqualstoDirective, multi: true },
   ],
 })
 
@@ -12,32 +12,24 @@ export class EqualstoDirective implements Validator {
 
   constructor(
     @Attribute('equalsTo') public equalsTo: string,
-    @Attribute('isConfirm') public isConfirm: string,
   ) {}
 
   validate(control: AbstractControl) {
     const controlValue = control.value;
     const compareToCtrl = control.parent.get(this.equalsTo);
-    const isConfirm = this.isConfirm === 'true' ? true : false;
     const errorObj = { equalsTo: { valid: false } };
 
-    if (compareToCtrl && controlValue !== compareToCtrl.value && isConfirm) {
+    if (compareToCtrl && control.dirty && compareToCtrl.dirty && controlValue !== compareToCtrl.value) {
+      control.setErrors(errorObj);
       return errorObj;
-    }
-
-    if (compareToCtrl && controlValue === compareToCtrl.value && !isConfirm) {
-      if (compareToCtrl.errors !== null) {
-        delete compareToCtrl.errors.equalsTo;
-        if (!Object.keys(compareToCtrl.errors).length) {
-          compareToCtrl.setErrors(null);
+    } else if (compareToCtrl && control.dirty && compareToCtrl.dirty && controlValue === compareToCtrl.value) {
+      if (control.errors && 'equalsTo' in control.errors) {
+        delete control.errors.equalsTo;
+        if (Object.keys(control.errors).length === 0) {
+          control.setErrors(null);
         }
       }
     }
-
-    if (compareToCtrl && controlValue !== compareToCtrl.value && !isConfirm) {
-      compareToCtrl.setErrors(errorObj);
-    }
-
     return null;
   }
 }

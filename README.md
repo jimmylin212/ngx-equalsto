@@ -25,7 +25,7 @@ export class AppModule {}
 
 ## Usage
 
-This directive work with reactive form only. You need to mention the form control that equals to in `equalsTo` directive. If you add `isConfirm` directive in the input, then the error will only reflect to that form control.
+This directive work with reactive form only. You need to mention the form control that equals to in `equalsTo` directive.
 
 Here is the example of how to use in `COMP.component.ts` and `COMP.component.html`.
 
@@ -46,8 +46,8 @@ export class AppComponent implements OnInit {
 
 ```html
 <form [formGroup]="exampleForm">
-  <input formControlName="password" equalsTo="passwordConfirm">
-  <input formControlName="passwordConfirm" equalsTo="password" isConfirm="true">
+  <input formControlName="password">
+  <input formControlName="passwordConfirm" equalsTo="password">
 </form>
 ```
 

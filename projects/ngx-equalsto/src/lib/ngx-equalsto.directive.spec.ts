@@ -6,8 +6,8 @@ import { ReactiveFormsModule, FormGroup, FormBuilder } from '@angular/forms';
 @Component({
   template: `
   <form [formGroup]="exampleForm">
-    <input formControlName="password" equalsTo="passwordConfirm">
-    <input formControlName="passwordConfirm" equalsTo="password" isConfirm="true">
+    <input formControlName="password">
+    <input formControlName="passwordConfirm" equalsTo="password">
   </form>
   `
 })
@@ -40,15 +40,29 @@ describe('EqualstoDirective', () => {
   });
 
   it('should get error with patched value', () => {
+    component.exampleForm.get('password').markAsDirty();
+    component.exampleForm.get('passwordConfirm').markAsDirty();
+
     component.exampleForm.patchValue({
       password: 'password',
       passwordConfirm: 'different',
     });
+
     fixture.detectChanges();
 
     expect(component.exampleForm.valid).toBeFalsy();
     expect(component.exampleForm.get('password').valid).toBeTruthy();
     expect(component.exampleForm.get('passwordConfirm').valid).toBeFalsy();
     expect(component.exampleForm.get('passwordConfirm').errors.equalsTo).toEqual({ valid: false });
+
+    component.exampleForm.patchValue({
+      passwordConfirm: 'password',
+    });
+
+    fixture.detectChanges();
+    expect(component.exampleForm.valid).toBeTruthy();
+    expect(component.exampleForm.get('password').valid).toBeTruthy();
+    expect(component.exampleForm.get('passwordConfirm').valid).toBeTruthy();
+    expect(component.exampleForm.get('passwordConfirm').errors).toBeNull();
   });
 });

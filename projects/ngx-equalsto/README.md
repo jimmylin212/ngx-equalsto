@@ -46,8 +46,8 @@ export class AppComponent implements OnInit {
 
 ```html
 <form [formGroup]="exampleForm">
-  <input formControlName="password" equalsTo="passwordConfirm">
-  <input formControlName="passwordConfirm" equalsTo="password" isConfirm="true">
+  <input formControlName="password">
+  <input formControlName="passwordConfirm" equalsTo="password">
 </form>
 ```
 

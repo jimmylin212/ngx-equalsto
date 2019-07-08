@@ -1,6 +1,6 @@
 {
   "name": "ngx-equalsto",
-  "version": "1.0.0",
+  "version": "1.0.4",
   "description": "An Angular directive that compare 2 or more input in reactive form.",
   "author": "Jimmy Lin",
   "repository": {
